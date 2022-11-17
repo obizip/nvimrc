@@ -226,6 +226,12 @@ vim.keymap.set("n", "j", "gj", opts)
 vim.keymap.set("n", "k", "gk", opts)
 vim.keymap.set("n", "H", "^", opts)
 vim.keymap.set("n", "L", "$", opts)
+vim.keymap.set("n", "p", "]p", opts)
+vim.keymap.set("n", "P", "]P", opts)
+vim.keymap.set("n", "+", "<C-a>", opts)
+vim.keymap.set("n", "-", "<C-x>", opts)
+vim.keymap.set("n", "<C-a>", "<Nop>", opts)
+vim.keymap.set("n", "<C-x>", "<Nop>", opts)
 vim.keymap.set("n", "<Esc><Esc>", ":noh<Cr>", opts)
 vim.keymap.set("n", "<Leader>j", ":bprev<Cr>", opts)
 vim.keymap.set("n", "<Leader>k", ":bnext<Cr>", opts)
@@ -253,7 +259,7 @@ vim.keymap.set('n', 'g[', ':lua vim.diagnostic.goto_prev()<CR>')
 -- Insert mode -- 
 vim.keymap.set("i", "<C-k>", "<C-o>D", { noremap=true }) -- カーソルから右を全て削除
 vim.keymap.set("i", "<C-j>", "<C-o>o", { noremap=true }) -- 改行
-vim.keymap.set("i", "<C-y>", "<C-o>p", { noremap=true }) -- paste
+vim.keymap.set("i", "<C-y>", "<C-o>]p", { noremap=true }) -- paste
 vim.keymap.set("i", "<C-b>", "<left>", { noremap=true })
 vim.keymap.set("i", "<C-f>", "<right>", { noremap=true })
 vim.keymap.set("i", "{",        "{}<Left>",               opts)
