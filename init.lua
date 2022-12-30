@@ -1,41 +1,10 @@
 vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+augroup end
 ]])
---- Options ---
--- Unload -- 
-vim.g.did_install_default_menus = 1
-vim.g.did_install_syntax_menu   = 1
-vim.g.did_indent_on             = 1
-vim.g.loaded_2html_plugin       = 1
-vim.g.loaded_getscript          = 1
-vim.g.loaded_getscriptPlugin    = 1
-vim.g.loaded_gzip               = 1
-vim.g.loaded_logiPat            = 1
-vim.g.loaded_logipat            = 1
-vim.g.loaded_man                = 1
-vim.g.loaded_matchit            = 1
-vim.g.loaded_matchparen         = 1
-vim.g.loaded_netrw              = 1
-vim.g.loaded_netrwFileHandlers  = 1
-vim.g.loaded_netrwPlugin        = 1
-vim.g.loaded_netrwSettings      = 1
-vim.g.loaded_remote_plugins     = 1
-vim.g.loaded_rrhelper           = 1
-vim.g.loaded_shada_plugin       = 1
-vim.g.loaded_spellfile_plugin   = 1
-vim.g.loaded_sql_completion     = 1
-vim.g.loaded_tar                = 1
-vim.g.loaded_tarPlugin          = 1
-vim.g.loaded_tutor_mode_plugin  = 1
-vim.g.loaded_vimball            = 1
-vim.g.loaded_vimballPlugin      = 1
-vim.g.loaded_zip                = 1
-vim.g.loaded_zipPlugin          = 1
-vim.g.skip_loading_mswin        = 1
-vim.g.vimsyn_embed              = 1
+--- Options --------------------------------------------------------------------------
 -- Base --
 vim.cmd("syntax on")
 vim.o.encoding = "utf-8"
@@ -44,10 +13,9 @@ vim.o.clipboard = "unnamedplus"
 vim.o.errorbells = false
 vim.o.visualbell = false
 vim.o.backspace = "indent,eol,start"
-vim.o.virtualedit = "block"
+vim.o.virtualedit = "none"
 vim.o.formatoptions = vim.o.formatoptions .. "m" -- 整形オプション，マルチバイト系を追加
-vim.o.completeopt = "menuone,noselect,noinsert"
-
+vim.o.completeopt = "menu,menuone,noselect"
 -- File --
 vim.o.swapfile = false
 vim.o.backup = false
@@ -59,7 +27,7 @@ vim.opt.undodir = os.getenv("HOME") .. '/.local/share/nvim/undo'
 vim.o.title = true
 vim.o.termguicolors = true
 vim.o.number = false
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.showmode = false
 vim.o.showmatch = true
 vim.o.matchtime = 1
@@ -67,10 +35,15 @@ vim.o.showcmd = false
 vim.o.laststatus = 1
 vim.o.wildmenu = true
 vim.o.wildmode = "list:longest,full"
+vim.o.scrolloff = 8
+vim.o.signcolumn = "yes"
+vim.o.cursorline = true
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
 -- Tab & Indent -- 
 vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 0
+vim.o.shiftwidth = 0 -- tabstopに従う
+vim.o.softtabstop = -1 -- shiftwidthに従う 
 vim.o.expandtab = true -- expand tab to spaces
 vim.o.smarttab = true
 vim.o.autoindent = true
@@ -86,46 +59,91 @@ vim.o.smartcase = true -- 大文字ではじめたら大文字小文字無視し
 vim.o.incsearch = true -- インクリメンタルサーチ
 vim.o.hlsearch = true -- 検索文字をハイライト
 
---- Plugins ---
+--- Plugins --------------------------------------------------------------------------
 --install packer 
 --https://github.com/wbthomason/packer.nvim
---
 vim.cmd ([[packadd packer.nvim]])
-
 require('packer').startup(function(use) 
+    use 'wbthomason/packer.nvim'
+    use 'EdenEast/nightfox.nvim'
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
     use 'tpope/vim-repeat'
-    use 'EdenEast/nightfox.nvim'
     use 'lambdalisue/fern.vim'
     use 'lambdalisue/fern-hijack.vim'
+    use 'windwp/nvim-autopairs'
+    use 'windwp/nvim-ts-autotag'
+    use 'ggandor/leap.nvim'
+    use 'rhysd/migemo-search.vim'
+
+    -- using packer.nvim
+    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
     use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
     }
-    use {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig",
-    }
-    use {
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-    }
+    -- LSP Support
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
+    -- Autocompletion
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'saadparwaiz1/cmp_luasnip'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-nvim-lua'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'ray-x/cmp-treesitter'
+    -- Snippets
+    use 'L3MON4D3/LuaSnip'
+    -- Option
+    use 'j-hui/fidget.nvim'
+
+    use "lukas-reineke/indent-blankline.nvim"
+    use 'p00f/nvim-ts-rainbow'
+    use 'lervag/vimtex'
+    use 'rust-lang/rust.vim'
 end)
 
 -- Plugin setting
+require('nvim-autopairs').setup({
+    disable_filetype = { "TelescopePrompt" , "vim" },
+    map_c_h = true,
+})
+require('nvim-autopairs').remove_rule("'")
+require('nvim-autopairs').remove_rule('"')
+require('leap').add_default_mappings()
+require("bufferline").setup{
+    options = {
+        diagnostics = 'nvim_lsp',
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        separator_style = { '|', '|' },
+        diagnostics_indicator = function(count, level, diagnostics_dict, context)
+            local icon = level:match("error") and " " or " "
+            return " " .. icon .. count
+        end,
+    },
+}
 require'nvim-treesitter.configs'.setup ({
+    autotag = {
+        enable = true,
+    },
     highlight = {
         enable = true,
         disable = {},
     },
+    rainbow = {
+        enable = true,
+        extended_mode = true,
+        max_file_lines = 1000,
+    }
 })
 vim.cmd("colorscheme duskfox")
+
+-- Lsp setting
 require("mason").setup({
     ui = {
         icons = {
@@ -136,98 +154,114 @@ require("mason").setup({
     }
 })
 require('mason-lspconfig').setup_handlers({ function(server)
-  local opt = {
-    capabilities = require('cmp_nvim_lsp').default_capabilities(
-      vim.lsp.protocol.make_client_capabilities()
-    )
-  }
-  require('lspconfig')[server].setup(opt)
+    local opt = {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
+        )
+    }
+    require('lspconfig')[server].setup(opt)
 end })
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
--- Set up nvim-cmp.
-  local cmp = require'cmp'
+-- 3. completion (hrsh7th/nvim-cmp)
 
-  cmp.setup({
+local cmp = require("cmp")
+cmp.setup({
     snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        end,
     },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
+    sources = {
+        { name = "buffer" },
+        { name = "path" },
+        { name = "luasnip" },
+        { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lua" },
+        { name = "treesitter" },
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-      ["<Tab>"] = cmp.mapping.select_next_item(),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+        ["<Tab>"] = cmp.mapping.select_next_item(),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-    }, {
-      { name = 'buffer' },
-    })
-  })
+})
 
-  -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline({ '/', '?' }, {
+-- cmdline
+cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      { name = 'buffer' }
+        { name = 'buffer' }
     }
-  })
-
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
+})
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
+    sources = {
+        { name = "path" },
+        { name = "cmdline" },
+    },
+})
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require"fidget".setup{}
 
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-  --   capabilities = capabilities
-  -- }
+-- indent-blankline
+require("indent_blankline").setup {
+    show_end_of_line = true,
+    space_char_blankline = " ",
+}
+-- Vimtex
+vim.cmd ([[
+let g:tex_flavor='latex'
+let g:vimtex_view_method='skim'
+let g:vimtex_view_skim_sync=1
+let g:vimtex_view_skim_active=1
+let g:vimtex_compiler_method = 'latexmk'
+let g:maplocalleader=" "
+]])
+-- Rust
+vim.g.rustfmt_autosave = 1
 --- Commands ---
 vim.cmd ([[
-    command! -count=4 Tab call SetTab(<count>)
-    function! SetTab(count)
-        execute 'set shiftwidth=' . a:count
-        execute 'set tabstop=' . a:count
-    endfunction
+command! -count=4 Tab call SetTab(<count>)
+function! SetTab(count)
+execute 'set shiftwidth=' . a:count
+execute 'set tabstop=' . a:count
+endfunction
+
+command! RemoveWhiteSpace :%s/\s*$// | :noh
 ]])
---- Mappings --- 
+vim.cmd ([[
+command! Migemo call Migemo()
+function! Migemo()
+    if hasmapto('\<CR>','c')
+        cunmap <expr><CR>
+    else
+        cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+    endif
+endfunction
+]])
+
+--- Mappings -------------------------------------------------------------------------- 
 local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 -- Normal mode -- 
 vim.keymap.set("n", "j", "gj", opts)
 vim.keymap.set("n", "k", "gk", opts)
+vim.keymap.set("n", "n", "nzzzv", opts)
+vim.keymap.set("n", "N", "Nzzzv", opts)
 vim.keymap.set("n", "H", "^", opts)
 vim.keymap.set("n", "L", "$", opts)
 vim.keymap.set("n", "p", "]p", opts)
 vim.keymap.set("n", "P", "]P", opts)
+vim.keymap.set("n", "Q", "<nop>", opts)
 vim.keymap.set("n", "+", "<C-a>", opts)
 vim.keymap.set("n", "-", "<C-x>", opts)
 vim.keymap.set("n", "<C-a>", "<Nop>", opts)
@@ -244,6 +278,8 @@ vim.keymap.set("n", "<Leader>n", ":set number<Cr>", opts)
 vim.keymap.set("n", "<Leader>N", ":set nonumber<Cr>", opts)
 vim.keymap.set("n", "<Leader>2", ":Tab 2<Cr>", opts)
 vim.keymap.set("n", "<Leader>4", ":Tab 4<Cr>", opts)
+vim.keymap.set("n", "<Leader>ll", ":VimtexCompile<Cr>", opts)
+vim.keymap.set("n", "<Leader>lv", ":VimtexView<Cr>", opts)
 vim.keymap.set('n', 'K',  ':lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'gf', ':lua vim.lsp.buf.formatting()<CR>')
 vim.keymap.set('n', 'gr', ':lua vim.lsp.buf.references()<CR>')
@@ -262,13 +298,25 @@ vim.keymap.set("i", "<C-j>", "<C-o>o", { noremap=true }) -- 改行
 vim.keymap.set("i", "<C-y>", "<C-o>]p", { noremap=true }) -- paste
 vim.keymap.set("i", "<C-b>", "<left>", { noremap=true })
 vim.keymap.set("i", "<C-f>", "<right>", { noremap=true })
-vim.keymap.set("i", "{",        "{}<Left>",               opts)
-vim.keymap.set("i", "{<Enter>", "{}<Left><CR><ESC><S-o>", opts)
-vim.keymap.set("i", "(",        "()<ESC>i",               opts)
-vim.keymap.set("i", "(<Enter>", "()<Left><CR><ESC><S-o>", opts)
+vim.keymap.set("i", "<C-a>", "<home>", { noremap=true })
+vim.keymap.set("i", "<C-e>", "<end>", { noremap=true })
+vim.keymap.set("i", "<C-c>", "<ESC>", { noremap=true })
+
 -- Visual mode -- 
 vim.keymap.set("v", "j", "gj", opts)
 vim.keymap.set("v", "k", "gk", opts)
 -- Command mode -- 
 vim.keymap.set("c", "<C-b>", "<left>", { noremap=true })
 vim.keymap.set("c", "<C-f>", "<right>", { noremap=true })
+
+vim.cmd([[
+augroup MyAutoCmd
+if executable('pdftotext')
+    " PDFファイルを開いた時、text形式に変換してから開く
+    autocmd BufRead *.pdf :enew | 0read !pdftotext -layout -nopgbrk "#" -
+endif
+" 圧縮ファイルとPDFファイルを開いた時、readonlyモードで開き、j/kキーマップを変更
+autocmd BufRead *.zip,*.gz,*.bz2,*.xz,*.pdf setlocal readonly nolist
+    \| nn <buffer> j <C-E> | nn <buffer> k <C-Y>
+augroup END
+]])
