@@ -17,8 +17,13 @@ vim.o.backup = false
 vim.o.hidden = true
 vim.o.autoread = true
 vim.o.autowrite = true
+
+local undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
+if not vim.fn.isdirectory(undodir) then
+    vim.fn.mkdir(undodir, "p", 0770)
+end
 vim.o.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. '/.local/share/nvim/undo'
+vim.opt.undodir = undodir
 
 -- Display --
 vim.o.title = true

@@ -11,8 +11,6 @@ vim.cmd([[
   command! FixPunctuation call FixPunctuation()
 ]])
 
-
-
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
 
@@ -49,15 +47,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     local backup = vim.fn.fnamemodify(file, ":p:~:h")
     backup = backup:gsub("[/\\]", "%%")
     vim.go.backupext = backup
-  end,
-})
-
--- Fix conceallevel for json & help files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "json", "jsonc" },
-  callback = function()
-    vim.wo.spell = false
-    vim.wo.conceallevel = 0
   end,
 })
 

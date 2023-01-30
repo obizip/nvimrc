@@ -16,27 +16,27 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup("plugins", {
- defaults = { lazy = true },
- checker = { enabled = true },
- performance = {
-   cache = {
-     enabled = true,
-     -- disable_events = {},
-   },
-   rtp = {
-     disabled_plugins = {
-       "gzip",
-       "matchit",
-       "matchparen",
-       "netrwPlugin",
-       "tarPlugin",
-       "tohtml",
-       "tutor",
-       "zipPlugin",
-     },
-   },
- },
- debug = false,
+  defaults = { lazy = true },
+  checker = { enabled = true },
+  performance = {
+    cache = {
+      enabled = true,
+      -- disable_events = {},
+    },
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+  debug = false,
 })
 
 vim.keymap.set("n", "<space>l", "<cmd>Lazy<cr>")
@@ -48,5 +48,3 @@ vim.api.nvim_create_autocmd("User", {
     require("mappings")
   end,
 })
-
-
