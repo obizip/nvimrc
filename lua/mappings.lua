@@ -19,8 +19,8 @@ vim.keymap.set("n", "<C-s>", ":wall<Cr>", opts)
 vim.keymap.set("n", "<C-f>", "<C-d>", opts)
 vim.keymap.set("n", "<C-b>", "<C-u>", opts)
 
-vim.keymap.set("n", "<C-j>", ":bp<Cr>", opts)
-vim.keymap.set("n", "<C-k>", ":bn<Cr>", opts)
+vim.keymap.set("n", "<C-h>", ":bp<Cr>", opts)
+vim.keymap.set("n", "<C-l>", ":bn<Cr>", opts)
 vim.keymap.set("n", "<C-d>", ":bwipe<Cr>", opts)
 
 vim.cmd("command! Numbertoggle setl number! number?")
