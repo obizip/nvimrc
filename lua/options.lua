@@ -1,5 +1,8 @@
 -- Base --
-vim.cmd("language en_US.UTF-8")
+if vim.loop.os_uname().sysname == "Darwin" then
+	vim.cmd("language en_US.UTF-8")
+	vim.o.clipboard = "unnamedplus"
+end
 vim.g.encoding = "utf-8"
 vim.g.fileencodings = "ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,latin1"
 vim.o.history = 1000
@@ -7,7 +10,6 @@ vim.o.errorbells = false
 vim.o.visualbell = false
 vim.o.spell = false
 vim.o.backspace = "indent,eol,start"
-vim.o.clipboard = "unnamedplus"
 vim.o.virtualedit = "none"
 vim.o.formatoptions = vim.o.formatoptions .. "m" -- 整形オプション，マルチバイト系を追加
 
@@ -20,7 +22,7 @@ vim.o.autowrite = true
 
 local undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
 if not vim.fn.isdirectory(undodir) then
-    vim.fn.mkdir(undodir, "p", 0770)
+	vim.fn.mkdir(undodir, "p", 0770)
 end
 vim.o.undofile = true
 vim.opt.undodir = undodir
@@ -42,14 +44,14 @@ vim.o.scrolloff = 4
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
 vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append("space:⋅")
 vim.o.conceallevel = 0
-vim.o.concealcursor = ''
+vim.o.concealcursor = ""
 
--- Tab & Indent -- 
-vim.o.tabstop = 4   -- only set tabstop
+-- Tab & Indent --
+vim.o.tabstop = 4 -- only set tabstop
 vim.o.shiftwidth = 0 -- tabstopに従う
-vim.o.softtabstop = -1 -- shiftwidthに従う 
+vim.o.softtabstop = -1 -- shiftwidthに従う
 vim.o.expandtab = true -- expand tab to spaces
 vim.o.smarttab = true
 vim.o.autoindent = true
