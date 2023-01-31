@@ -99,6 +99,38 @@ return {
           },
         })
       end
+
+        require("lspconfig").texlab.setup({
+          settings = {
+            texlab = {
+              rootDirectory = nil,
+              build = {
+                executable = "tectonic",
+                args = { "-X", "compile", "--synctex", "%f", "--keep-logs", "--keep-intermediates" },
+                onSave = true,
+                forwardSearchAfter = false,
+              },
+              auxDirectory = ".",
+              forwardSearch = {
+                executable = "zathura",
+                args = { "--synctex-forward", "%l:0:%f", "%p"},
+              },
+              chktex = {
+                onOpenAndSave = false,
+                onEdit = false,
+              },
+              -- diagnosticsDelay = 300,
+              diagnosticsDelay = 100,
+              latexFormatter = "latexindent",
+              latexindent = {
+                ["local"] = nil, -- local is a reserved keyword
+                modifyLineBreaks = false,
+              },
+              bibtexFormatter = "texlab",
+              formatterLineLength = 80,
+            },
+          },
+        })
     end,
   },
 }
