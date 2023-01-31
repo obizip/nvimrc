@@ -32,22 +32,22 @@ return {
       vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
 
       local opts = { noremap = true, silent = true }
-      vim.keymap.set("n",  "K", vim.lsp.buf.hover,           opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references,      opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition,      opts)
-      vim.keymap.set("n", "gD", vim.lsp.buf.declaration,     opts)
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation,  opts)
-      vim.keymap.set("n", "gK", vim.lsp.buf.signature_help,  opts)
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+      vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, opts)
       vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-      vim.keymap.set("n", "ga", vim.lsp.buf.code_action,     opts)
-      vim.keymap.set("n", "ge", vim.diagnostic.open_float,   opts)
+      vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
 
       local wk = require("which-key")
       wk.register({
-            ["<leader>a"] = { vim.lsp.buf.format,     "Format" },
-            ["<leader>r"] = { vim.lsp.buf.rename,     "Rename" },
-            ["<leader>j"] = { vim.diagnostic.goto_prev, "Prev diagnostic" },
-            ["<leader>k"] = { vim.diagnostic.goto_next,  "Next diagnostic" },
+        ["<leader>a"] = { vim.lsp.buf.format, "Format" },
+        ["<leader>r"] = { vim.lsp.buf.rename, "Rename" },
+        ["<leader>j"] = { vim.diagnostic.goto_prev, "Prev diagnostic" },
+        ["<leader>k"] = { vim.diagnostic.goto_next, "Next diagnostic" },
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -64,6 +64,38 @@ return {
             capabilities = capabilities,
           })
         end,
+      })
+
+      require("lspconfig").texlab.setup({
+        settings = {
+          texlab = {
+            rootDirectory = nil,
+            build = {
+              executable = "tectonic",
+              args = { "-X", "compile", "--synctex", "%f", "--keep-logs", "--keep-intermediates" },
+              onSave = true,
+              forwardSearchAfter = false,
+            },
+            auxDirectory = ".",
+            forwardSearch = {
+              executable = "displayline",
+              args = {"%l", "%p", "%f"},
+            },
+            chktex = {
+              onOpenAndSave = false,
+              onEdit = false,
+            },
+            -- diagnosticsDelay = 300,
+            diagnosticsDelay = 100,
+            latexFormatter = "latexindent",
+            latexindent = {
+              ["local"] = nil, -- local is a reserved keyword
+              modifyLineBreaks = false,
+            },
+            bibtexFormatter = "texlab",
+            formatterLineLength = 80,
+          },
+        },
       })
     end,
   },
