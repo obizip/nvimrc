@@ -29,7 +29,7 @@ return {
       require("fidget").setup()
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] =
-      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
 
       local opts = { noremap = true, silent = true }
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -66,37 +66,39 @@ return {
         end,
       })
 
-      require("lspconfig").texlab.setup({
-        settings = {
-          texlab = {
-            rootDirectory = nil,
-            build = {
-              executable = "tectonic",
-              args = { "-X", "compile", "--synctex", "%f", "--keep-logs", "--keep-intermediates" },
-              onSave = true,
-              forwardSearchAfter = false,
+      if vim.loop.os_uname().sysname == "Darwin" then
+        require("lspconfig").texlab.setup({
+          settings = {
+            texlab = {
+              rootDirectory = nil,
+              build = {
+                executable = "tectonic",
+                args = { "-X", "compile", "--synctex", "%f", "--keep-logs", "--keep-intermediates" },
+                onSave = true,
+                forwardSearchAfter = false,
+              },
+              auxDirectory = ".",
+              forwardSearch = {
+                executable = "displayline",
+                args = { "%l", "%p", "%f" },
+              },
+              chktex = {
+                onOpenAndSave = false,
+                onEdit = false,
+              },
+              -- diagnosticsDelay = 300,
+              diagnosticsDelay = 100,
+              latexFormatter = "latexindent",
+              latexindent = {
+                ["local"] = nil, -- local is a reserved keyword
+                modifyLineBreaks = false,
+              },
+              bibtexFormatter = "texlab",
+              formatterLineLength = 80,
             },
-            auxDirectory = ".",
-            forwardSearch = {
-              executable = "displayline",
-              args = {"%l", "%p", "%f"},
-            },
-            chktex = {
-              onOpenAndSave = false,
-              onEdit = false,
-            },
-            -- diagnosticsDelay = 300,
-            diagnosticsDelay = 100,
-            latexFormatter = "latexindent",
-            latexindent = {
-              ["local"] = nil, -- local is a reserved keyword
-              modifyLineBreaks = false,
-            },
-            bibtexFormatter = "texlab",
-            formatterLineLength = 80,
           },
-        },
-      })
+        })
+      end
     end,
   },
 }
