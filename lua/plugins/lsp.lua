@@ -26,6 +26,7 @@ return {
 
     config = function()
       require("mason").setup()
+      require("mason-lspconfig").setup()
       require("fidget").setup()
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] =
@@ -66,41 +67,25 @@ return {
         end,
       })
 
+
+
+      -- requirements
+      -- compiler:
+      --  tectonic
+      -- pdf viewer
+      --  mac: skim
+      --  wsl: zathura
+      local pdf_cmd = ""
+      local pdf_args = {}
       if vim.loop.os_uname().sysname == "Darwin" then
-        require("lspconfig").texlab.setup({
-          settings = {
-            texlab = {
-              rootDirectory = nil,
-              build = {
-                executable = "tectonic",
-                args = { "-X", "compile", "--synctex", "%f", "--keep-logs", "--keep-intermediates" },
-                onSave = true,
-                forwardSearchAfter = false,
-              },
-              auxDirectory = ".",
-              forwardSearch = {
-                executable = "displayline",
-                args = { "%l", "%p", "%f" },
-              },
-              chktex = {
-                onOpenAndSave = false,
-                onEdit = false,
-              },
-              -- diagnosticsDelay = 300,
-              diagnosticsDelay = 100,
-              latexFormatter = "latexindent",
-              latexindent = {
-                ["local"] = nil, -- local is a reserved keyword
-                modifyLineBreaks = false,
-              },
-              bibtexFormatter = "texlab",
-              formatterLineLength = 80,
-            },
-          },
-        })
+        pdf_cmd = "displayline"
+        pdf_args = { "%l", "%p", "%f" }
+      else
+        pdf_cmd = "zathura"
+        pdf_args = { "--synctex-forward", "%l:0:%f", "%p" }
       end
 
-        require("lspconfig").texlab.setup({
+        lspconfig.texlab.setup({
           settings = {
             texlab = {
               rootDirectory = nil,
@@ -112,8 +97,8 @@ return {
               },
               auxDirectory = ".",
               forwardSearch = {
-                executable = "zathura",
-                args = { "--synctex-forward", "%l:0:%f", "%p"},
+                executable = pdf_cmd,
+                args = pdf_args,
               },
               chktex = {
                 onOpenAndSave = false,
@@ -131,6 +116,7 @@ return {
             },
           },
         })
+
     end,
   },
 }

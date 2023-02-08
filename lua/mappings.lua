@@ -13,6 +13,7 @@ vim.keymap.set("n", "<C-a>", "<Nop>", opts)
 vim.keymap.set("n", "<C-x>", "<Nop>", opts)
 vim.keymap.set("n", "<Esc><Esc>", ":noh<Cr>", opts)
 vim.keymap.set("n", "<C-s>", ":wall<Cr>", opts)
+vim.keymap.set("n", "<C-c>", "<ESC>",   { noremap=true })
 
 vim.keymap.set("n", "<C-f>", "<C-d>", opts)
 vim.keymap.set("n", "<C-b>", "<C-u>", opts)

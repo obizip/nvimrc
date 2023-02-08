@@ -1,10 +1,19 @@
 return {
+  -- {
+  --   "EdenEast/nightfox.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd([[colorscheme duskfox]])
+  --   end,
+  -- },
+
   {
-    "EdenEast/nightfox.nvim",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme duskfox]])
+      vim.cmd([[colorscheme tokyonight-night]])
     end,
   },
 
@@ -35,9 +44,34 @@ return {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = function()
+      local custom_nightfly = require("lualine.themes.nightfly")
+      local bg = "#1a1b26"
+      local fg = "#a9b1d6"
+
+      custom_nightfly.replace.b.fg = fg
+      custom_nightfly.replace.b.bg = bg
+
+      custom_nightfly.normal.b.fg = fg
+      custom_nightfly.normal.b.bg = bg
+      custom_nightfly.normal.c.fg = fg
+      custom_nightfly.normal.c.bg = bg
+
+      custom_nightfly.inactive.b.fg = fg
+      custom_nightfly.inactive.b.bg = bg
+      custom_nightfly.inactive.c.fg = fg
+      custom_nightfly.inactive.c.bg = bg
+
+      custom_nightfly.visual.b.fg = fg
+      custom_nightfly.visual.b.bg = bg
+
+      custom_nightfly.insert.b.fg = fg
+      custom_nightfly.insert.b.bg = bg
+      -- background: '0x1a1b26'
+      -- foreground: '0xa9b1d6'
+
       require("lualine").setup({
         options = {
-          theme = "auto",
+          theme = custom_nightfly,
         },
       })
     end,
