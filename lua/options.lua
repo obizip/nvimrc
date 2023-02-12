@@ -31,7 +31,7 @@ vim.opt.undodir = undodir
 vim.o.title = true
 vim.o.termguicolors = true
 vim.o.number = false
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.showmode = false
 vim.o.showmatch = true
 vim.o.matchtime = 1
@@ -44,8 +44,8 @@ vim.o.scrolloff = 4
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
 vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("tab:▸-")
+vim.opt.listchars:append("space: ")
+vim.opt.listchars:append("tab:▸ ")
 vim.o.conceallevel = 0
 vim.o.concealcursor = ""
 

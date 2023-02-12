@@ -10,8 +10,7 @@ return {
       presets.operators["d"] = nil
       presets.operators["c"] = nil
       require("which-key").setup()
-    end
-
+    end,
   },
   {
     "lewis6991/impatient.nvim",
@@ -33,7 +32,7 @@ return {
     config = function()
       require("nvim-rooter").setup({
         rooter_patterns = { ".git", ".hg", ".svn" },
-        trigger_patterns = { "*.rs", "*.lua", "*.vim", "*.java" },
+        trigger_patterns = { "*.rs", "*.lua", "*.vim", "*.java", "*.go" },
         manual = false,
       })
     end,

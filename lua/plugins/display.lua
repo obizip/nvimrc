@@ -13,7 +13,11 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme tokyonight-night]])
+      require("tokyonight").setup({
+        style = "night",
+        transparent = true,
+      })
+      vim.cmd([[colorscheme tokyonight]])
     end,
   },
 
@@ -101,7 +105,7 @@ return {
         "Trouble",
       },
       char = "▏",
-      use_treesitter_scope = false,
+      use_treesitter_scope = true,
       show_trailing_blankline_indent = false,
       show_current_context = true,
       context_patterns = {

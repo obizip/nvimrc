@@ -1,5 +1,5 @@
 vim.cmd([[
- autocmd BufWritePre \*.tex :call FixPunctuation()
+ autocmd BufWritePre *.tex :call FixPunctuation()
    function! FixPunctuation() abort
    let l:pos = getpos('.')
    silent! execute ':%s/。/. /g'
