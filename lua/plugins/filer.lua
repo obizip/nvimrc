@@ -15,7 +15,7 @@ return {
     })
     require("lir").setup({
       show_hidden_files = true,
-      ignore = {".DS_Store", "node_modules"}, 
+      ignore = {".DS_Store", "node_modules"},
       devicons = {
         enable = false,
         highlight_dirname = false,
