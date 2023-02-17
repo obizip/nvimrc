@@ -1,6 +1,11 @@
-vim.cmd([[
-  command! RemoveWhiteSpace :%s/\s*$// | :noh
-]])
+-- Trim all trailling whitespaces
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    local save = vim.fn.winsaveview()
+    vim.api.nvim_exec(string.format("silent! %s", [[%s/\s\+$//e]]), false)
+    vim.fn.winrestview(save)
+  end
+})
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })

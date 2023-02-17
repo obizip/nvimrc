@@ -1,5 +1,3 @@
-require("options")
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
+require("options")
 
 require("lazy").setup("plugins", {
 	defaults = { lazy = true },
@@ -21,7 +20,6 @@ require("lazy").setup("plugins", {
 	performance = {
 		cache = {
 			enabled = true,
-			-- disable_events = {},
 		},
 		rtp = {
 			disabled_plugins = {

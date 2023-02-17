@@ -25,7 +25,7 @@ if not vim.fn.isdirectory(undodir) then
 	vim.fn.mkdir(undodir, "p", 0770)
 end
 vim.o.undofile = true
-vim.opt.undodir = undodir
+vim.o.undodir = undodir
 
 -- Display --
 vim.o.title = true
@@ -39,15 +39,16 @@ vim.o.showcmd = false
 vim.o.laststatus = 1
 vim.o.wildmenu = true
 vim.o.wildmode = "list:longest,full"
-vim.o.completeopt = "menu,menuone,noselect"
+vim.o.completeopt = "menu,preview,menuone,noselect"
 vim.o.scrolloff = 4
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
-vim.opt.list = true
-vim.opt.listchars:append("space: ")
-vim.opt.listchars:append("tab:▸ ")
+vim.o.list = true
 vim.o.conceallevel = 0
 vim.o.concealcursor = ""
+vim.opt.listchars:append("space: ")
+vim.opt.listchars:append("trail: ")
+vim.opt.listchars:append("tab:▸ ")
 
 -- Tab & Indent --
 vim.o.tabstop = 4 -- only set tabstop

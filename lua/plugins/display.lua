@@ -1,13 +1,4 @@
 return {
-  -- {
-  --   "EdenEast/nightfox.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd([[colorscheme duskfox]])
-  --   end,
-  -- },
-
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -70,8 +61,6 @@ return {
 
       custom_nightfly.insert.b.fg = fg
       custom_nightfly.insert.b.bg = bg
-      -- background: '0x1a1b26'
-      -- foreground: '0xa9b1d6'
 
       require("lualine").setup({
         options = {
