@@ -73,12 +73,23 @@ return {
 			-- pdf viewer
 			--  mac: skim
 			--  wsl: zathura
+
+      if not vim.fn.executable('tectonic') then
+        goto skip
+      end
+
 			local pdf_cmd = ""
 			local pdf_args = {}
 			if vim.loop.os_uname().sysname == "Darwin" then
+        if not vim.fn.executable('displayline') then
+          goto skip
+        end
 				pdf_cmd = "displayline"
 				pdf_args = { "%l", "%p", "%f" }
 			else
+        if not vim.fn.executable('zathura') then
+          goto skip
+        end
 				pdf_cmd = "zathura"
 				pdf_args = { "--synctex-forward", "%l:0:%f", "%p" }
 			end
@@ -114,6 +125,7 @@ return {
 					},
 				},
 			})
+      ::skip::
 		end,
 	},
 }
