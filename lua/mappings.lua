@@ -22,7 +22,13 @@ vim.keymap.set("n", "<C-h>", ":bp<Cr>", opts)
 vim.keymap.set("n", "<C-l>", ":bn<Cr>", opts)
 vim.keymap.set("n", "<C-d>", ":bwipe<Cr>", opts)
 
-vim.cmd("command! Numbertoggle setl number! number?")
+vim.api.nvim_create_user_command(
+  'Numbertoggle', 
+  function()
+    vim.wo.number = not(vim.wo.number)
+  end,
+  {}
+)
 vim.keymap.set("n", "<C-n>", ":<C-u>Numbertoggle<cr>", opts)
 
 local wk = require("which-key")

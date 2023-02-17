@@ -1,12 +1,32 @@
+vim.api.nvim_create_autocmd("BufReadPre", {
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "<buffer>",
+      once = true,
+      callback = function()
+        vim.cmd(
+          [[if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif]]
+        )
+      end,
+    })
+  end,
+})
+vim.api.nvim_create_autocmd( "BufWritePre", {
+  pattern = "*.tex",
+  callback = function()
+    vim.api.nvim_command('silent exec "%s/。/. /g"')
+  end,
+})
+ -- autocmd BufWritePre *.tex :call FixPunctuation()
+ --   function! FixPunctuation() abort
+ --   let l:pos = getpos('.')
+ --   silent! execute ':%s/。/. /g'
+ --   silent! execute ':%s/、/, /g'
+ --   silent! execute ':%s/\\\@<!\s\+$//'
+ --   call setpos('.', l:pos)
+ -- endfunction
 vim.cmd([[
- autocmd BufWritePre *.tex :call FixPunctuation()
-   function! FixPunctuation() abort
-   let l:pos = getpos('.')
-   silent! execute ':%s/。/. /g'
-   silent! execute ':%s/、/, /g'
-   silent! execute ':%s/\\\@<!\s\+$//'
-   call setpos('.', l:pos)
- endfunction
 
  set matchpairs+=（:）,「:」,『:』,【:】,［:］,＜:＞
  command! FixPunctuation call FixPunctuation()

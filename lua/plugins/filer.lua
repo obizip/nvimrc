@@ -9,14 +9,13 @@ return {
     local actions = require("lir.actions")
     local mark_actions = require("lir.mark.actions")
     local clipboard_actions = require("lir.clipboard.actions")
-    -- vim.keymap.set("n", "<leader>e", require'lir.float'.init)
     local wk = require("which-key")
     wk.register({
       ["<leader>e"] = { require'lir.float'.init, "Open filer"}
     })
     require("lir").setup({
       show_hidden_files = true,
-      ignore = {".DS_Store", "node_modules"}, -- { ".DS_Store" "node_modules" } etc.
+      ignore = {".DS_Store", "node_modules"}, 
       devicons = {
         enable = false,
         highlight_dirname = false,
@@ -74,23 +73,4 @@ return {
     })
 
   end,
-  -- "lambdalisue/fern.vim",
-  -- lazy = false,
-  -- dependencies = {
-  --   "lambdalisue/fern-renderer-nerdfont.vim",
-  --   "lambdalisue/fern-hijack.vim",
-  --   "lambdalisue/nerdfont.vim",
-  --   "lambdalisue/glyph-palette.vim",
-  -- },
-  -- config = function()
-  --   vim.cmd([[
-  --   let g:fern#renderer = "nerdfont"
-  --
-  --   augroup my-glyph-palette
-  --     autocmd! *
-  --     autocmd FileType fern call glyph_palette#apply()
-  --     autocmd FileType nerdtree,startify call glyph_palette#apply()
-  --   augroup END
-  --   ]])
-  -- end,
 }

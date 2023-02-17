@@ -1,14 +1,5 @@
 vim.cmd([[
   command! RemoveWhiteSpace :%s/\s*$// | :noh
-
-  function! FixPunctuation() abort
-    let l:pos = getpos('.')
-    silent! execute ':%s/。/. /g'
-    silent! execute ':%s/、/, /g'
-    silent! execute ':%s/\\\@<!\s\+$//'
-    call setpos('.', l:pos)
-  endfunction
-  command! FixPunctuation call FixPunctuation()
 ]])
 
 -- Check if we need to reload the file when it changed
