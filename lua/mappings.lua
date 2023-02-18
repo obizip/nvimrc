@@ -43,8 +43,8 @@ vim.keymap.set("i", "<C-b>", "<left>", opts)
 vim.keymap.set("i", "<C-f>", "<right>", opts)
 vim.keymap.set("i", "<C-a>", "<home>", opts)
 vim.keymap.set("i", "<C-e>", "<end>", opts)
-vim.keymap.set("i", "<C-p>", "<up>", opts)
-vim.keymap.set("i", "<C-n>", "<down>", opts)
+-- vim.keymap.set("i", "<C-p>", "<up>", opts)
+-- vim.keymap.set("i", "<C-n>", "<down>", opts)
 
 -- Visual mode --
 vim.keymap.set("v", "j", "gj", opts)
