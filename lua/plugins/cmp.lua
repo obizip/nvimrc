@@ -55,14 +55,14 @@ function M.config()
         end
       end, { 'i', 's' }),
       ['<C-j>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
+        if luasnip.jumpable( -1) then
+          luasnip.jump( -1)
         else
           fallback()
         end
       end, { 'i', 's' }),
 
-      ["<C-Space>"] = cmp.mapping.complete(),
+      -- ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
