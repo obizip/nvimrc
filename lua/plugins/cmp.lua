@@ -28,11 +28,12 @@ function M.config()
     -- disable completion in comments
     enabled = function()
       local context = require("cmp.config.context")
+      local buftype = vim.api.nvim_buf_get_option(0, "buftype")
       -- keep command mode completion enabled when cursor is in a comment
       if vim.api.nvim_get_mode().mode == "c" then
         return true
       else
-        return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
+        return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment") and not(buftype == "prompt")
       end
     end,
     snippet = {
