@@ -29,7 +29,7 @@ return {
 			require("fidget").setup()
 
 			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
+				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
 
 			local opts = { noremap = true, silent = true }
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
