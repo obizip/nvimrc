@@ -1,3 +1,12 @@
+vim.api.nvim_create_user_command("Numbertoggle", function()
+  vim.wo.number = not vim.wo.number
+end, {})
+
+vim.api.nvim_create_user_command("Zen", function()
+  vim.o.cmdheight = 1 - vim.o.cmdheight
+  vim.o.laststatus = 1 - vim.o.laststatus
+end, {})
+
 -- Trim all trailling whitespaces
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
