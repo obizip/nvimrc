@@ -31,13 +31,13 @@ return {
                 timeout_ms = 500,
                 lsp_fallback = true,
             },
-            notify_on_error = true,
+            notify_on_error = false,
             formatters_by_ft = {
                 lua = { "stylua" },
                 -- Conform will run multiple formatters sequentially
-                python = { "isort", "black" },
+                -- python = { "isort", "black" },
                 rust = { "rustfmt" },
-                ["_"] = { "trim_whitespace" },
+                -- ["_"] = { "trim_whitespace" },
                 -- Use a sub-list to run only the first available formatter
                 -- javascript = { { "prettierd", "prettier" } },
             },
@@ -75,11 +75,11 @@ return {
     --         -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     --     },
     -- }
-    {
-        'windwp/nvim-autopairs', -- depended nvim-cmp
-        event = "InsertEnter",
-        opts = {
-            map_c_h = true,
-        }
-    },
+    -- {
+    --     'windwp/nvim-autopairs', -- depended nvim-cmp
+    --     event = "InsertEnter",
+    --     opts = {
+    --         map_c_h = true,
+    --     }
+    -- },
 }

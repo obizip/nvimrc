@@ -1,16 +1,26 @@
 return {
-    -- {
-    --   'AlexvZyl/nordic.nvim',
-    --   lazy = false,
-    --   priority = 1000,
-    --   config = function()
-    --       require 'nordic' .load()
-    --   end
-    -- },
     {
-        "folke/tokyonight.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
         -- lazy = false,
         -- priority = 1000,
+        config = function()
+            vim.cmd.colorscheme "catppuccin"
+        end
+    },
+    {
+        "cocopon/iceberg.vim",
+        -- lazy = false,
+        config = function()
+            -- load the colorscheme here
+            vim.cmd([[colorscheme iceberg]])
+        end,
+
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
         config = function()
             require("tokyonight").setup({
                 transparent = true,
@@ -32,8 +42,8 @@ return {
 
     {
         "EdenEast/nightfox.nvim",
-        lazy = false,
-        priority = 1000,
+        -- lazy = false,
+        -- priority = 1000,
         config = function()
             require("nightfox").setup({
                 options = {

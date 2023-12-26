@@ -9,7 +9,7 @@ vim.o.spell = false
 vim.o.backspace = "indent,eol,start"
 vim.o.virtualedit = "none"
 vim.o.formatoptions = vim.o.formatoptions .. "m" -- 整形オプション，マルチバイト系を追加
-vim.g.netrw_keepdir = 0
+-- vim.g.netrw_keepdir = 0
 
 -- File --
 vim.o.swapfile = false
@@ -30,7 +30,7 @@ vim.o.undodir = undodir
 vim.opt.shortmess:append("I") -- disable start message
 vim.o.title = true
 vim.o.termguicolors = true
-vim.o.number = false
+vim.o.number = true
 vim.o.cmdheight = 0
 vim.o.showmode = false
 vim.o.showmatch = true
@@ -41,6 +41,7 @@ vim.o.laststatus = 2
 -- vim.o.wildmode = "list:longest,full"
 vim.o.scrolloff = 4
 vim.o.signcolumn = "no"
+vim.o.colorcolumn = "100"
 vim.o.cursorline = true
 vim.o.list = true
 vim.o.conceallevel = 0

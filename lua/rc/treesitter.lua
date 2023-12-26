@@ -1,10 +1,17 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
+    lazy = false,
+    -- event = "VeryLazy",
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
     },
     opts = {
+        highlight = {
+            enable = true,
+        },
+        indent = {
+            enable = true,
+        },
         textobjects = {
             select = {
                 enable = true,
@@ -45,14 +52,14 @@ return {
                 -- and should return true of false
                 include_surrounding_whitespace = true,
             },
-        },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["<leader>s"] = "@parameter.inner",
-            },
-            swap_previous = {
-                ["<leader>S"] = "@parameter.inner",
+            swap = {
+                enable = true,
+                swap_next = {
+                    ["<leader>s"] = "@parameter.inner",
+                },
+                swap_previous = {
+                    ["<leader>S"] = "@parameter.inner",
+                },
             },
         },
     }
